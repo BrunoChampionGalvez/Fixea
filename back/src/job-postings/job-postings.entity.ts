@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Jo
 import { User } from '../users/users.entity';
 import { Contract } from 'src/contracts/contracts.entity';
 import { Application } from 'src/applications/applications.entity';
+import { JobPostingStatus } from './job-postings.enum';
 
 @Entity('job_postings')
 export class JobPosting {
@@ -10,7 +11,7 @@ export class JobPosting {
 
     @ManyToOne(() => User, user => user.jobPostings, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'customer_id' })
-    customer: User
+    user: User
 
     @Column('text')
     title: string;
@@ -24,8 +25,8 @@ export class JobPosting {
     @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
 
-    @Column('text')
-    status: string; // 'open' or 'closed'
+    @Column('enum', { enum: [JobPostingStatus.Closed, JobPostingStatus.Open], default: JobPostingStatus.Open })
+    status: JobPostingStatus; // 'open' or 'closed'
 
     @OneToMany(() => Contract, contract => contract.jobPosting)
     contract: Contract

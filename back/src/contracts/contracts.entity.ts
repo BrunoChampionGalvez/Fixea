@@ -3,6 +3,8 @@ import { JobPosting } from '../job-postings/job-postings.entity';
 import { Worker } from '../workers/workers.entity';
 import { ProjectTracking } from 'src/project-trackings/project-trackings.entity';
 import { User } from 'src/users/users.entity';
+import { ContractStatus } from './contracts.enum';
+import { Milestone } from 'src/milestones/milestones.entity';
 
 @Entity('contracts')
 export class Contract {
@@ -24,12 +26,12 @@ export class Contract {
     @Column('numeric')
     total_amount: number;
 
-    @Column('jsonb')
-    milestones: Record<string, any>; // milestone details and payment percentages
-
-    @Column('text')
-    status: string; // 'active', 'completed'
+    @Column('enum', { enum: [ContractStatus.Active, ContractStatus.Completed], default: ContractStatus.Active })
+    status: ContractStatus; // 'active', 'completed'
 
     @OneToMany(() => ProjectTracking, projectTracking => projectTracking.contract)
     projectTracking: ProjectTracking
+
+    @OneToMany(() => Milestone, milestone => milestone.contract)
+    milestones: Milestone[]
 }

@@ -44,9 +44,13 @@ export class Worker {
     @Column({ type: 'timestamp', nullable: true })
     lastLogin: Date
 
-    @ManyToOne(() => User, user => user.workers, { onDelete: 'CASCADE' })
+    @ManyToOne(() => User, user => user.currentWorkers, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'user_id' })
-    users: User[]
+    currentUsers: User[]
+
+    @ManyToOne(() => User, user => user.formerWorkers, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'user_id' })
+    formerUsers: User[]
 
     @Column('text', {array: true, nullable: true})
     services: string[];

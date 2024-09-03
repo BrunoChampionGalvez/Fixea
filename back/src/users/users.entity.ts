@@ -38,8 +38,11 @@ export class User {
     @Column({ type: 'timestamp', nullable: true })
     lastLogin: Date
 
-    @OneToMany(() => Worker, worker => worker.users)
-    workers: Worker[];
+    @OneToMany(() => Worker, worker => worker.currentUsers)
+    currentWorkers: Worker[];
+    
+    @OneToMany(() => Worker, worker => worker.formerUsers)
+    formerWorkers: Worker[];
 
     @OneToMany(() => Review, review => review.customer)
     reviews: Review[]
@@ -47,7 +50,7 @@ export class User {
     @OneToMany(() => Contract, contract => contract.user)
     contracts: Contract[]
 
-    @OneToMany(() => JobPosting, jobPosting => jobPosting.customer)
+    @OneToMany(() => JobPosting, jobPosting => jobPosting.user)
     jobPostings: JobPosting[]
 
     @OneToMany(() => Appointment, appointment => appointment.customer)
