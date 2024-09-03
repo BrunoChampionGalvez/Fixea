@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from "class-validator";
 
 export class LoginDto {
     @IsOptional()
@@ -14,9 +14,9 @@ export class LoginDto {
     password: string
 }
 
-export class RegisterDto {
+export class RegisterUserDto {
     @IsOptional()
-    @IsString()
+    @IsEmail()
     email: string
 
     @IsOptional()
@@ -43,4 +43,58 @@ export class RegisterDto {
     @IsNotEmpty()
     @IsString()
     city: string
+}
+
+export class RegisterWorkerDto {
+    @IsOptional()
+    @IsEmail()
+    email: string
+
+    @IsOptional()
+    @IsString()
+    username: string
+
+    @IsNotEmpty()
+    @IsString()
+    @IsStrongPassword()
+    password: string
+
+    @IsNotEmpty()
+    @IsString()
+    firstName: string
+
+    @IsNotEmpty()
+    @IsString()
+    lastName: string
+
+    @IsNotEmpty()
+    @IsString()
+    country: string
+
+    @IsNotEmpty()
+    @IsString()
+    city: string
+}
+
+export class RegisterSuperAdminDto {
+    @IsOptional()
+    @IsEmail()
+    email: string
+
+    @IsOptional()
+    @IsString()
+    username: string
+
+    @IsNotEmpty()
+    @IsString()
+    @IsStrongPassword()
+    password: string
+
+    @IsNotEmpty()
+    @IsString()
+    firstName: string
+
+    @IsNotEmpty()
+    @IsString()
+    lastName: string
 }

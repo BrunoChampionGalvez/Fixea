@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { LoginDto, RegisterDto } from "./auth.dtos";
+import { LoginDto, RegisterSuperAdminDto, RegisterUserDto, RegisterWorkerDto } from "./auth.dtos";
 import { AuthService } from "./auth.service";
 
 @Controller('auth')
@@ -12,17 +12,17 @@ export class AuthController {
     }
 
     @Post('register/user')
-    registerUser(@Body() registerData: RegisterDto) {
+    registerUser(@Body() registerData: RegisterUserDto) {
         return this.authService.registerUser(registerData)
     }
 
-    @Post('register/leader')
-    registerLeader(@Body() registerData: RegisterDto) {
-        return this.authService.registerLeader(registerData)
+    @Post('register/worker')
+    registerLeader(@Body() registerData: RegisterWorkerDto) {
+        return this.authService.registerWorker(registerData)
     }
 
     @Post('register/superadmin')
-    registerSuperAdmin(@Body() registerData: RegisterDto) {
+    registerSuperAdmin(@Body() registerData: RegisterSuperAdminDto) {
         return this.authService.registerSuperAdmin(registerData)
     }
 }

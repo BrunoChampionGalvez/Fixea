@@ -4,6 +4,7 @@ import { Review } from 'src/reviews/reviews.entity';
 import { Contract } from 'src/contracts/contracts.entity';
 import { JobPosting } from 'src/job-postings/job-postings.entity';
 import { Appointment } from 'src/appointments/appointments.entity';
+import { Roles } from 'src/auth/roles.enum';
 
 @Entity('users')
 export class User {
@@ -11,19 +12,31 @@ export class User {
     id: string;
 
     @Column('text')
-    name: string;
+    firstName: string;
 
-    @Column('text', { unique: true })
+    @Column('text')
+    lastName: string;
+
+    @Column('text', { unique: true, nullable: true })
+    username: string;
+
+    @Column('text', { unique: true, nullable: true })
     email: string;
 
     @Column('text')
     password: string;
+
+    @Column({ type: 'text', default: Roles.User })
+    role: string
 
     @Column('text', { nullable: true })
     profile_picture: string;
 
     @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
+
+    @Column({ type: 'timestamp', nullable: true })
+    lastLogin: Date
 
     @OneToMany(() => Worker, worker => worker.users)
     workers: Worker[];

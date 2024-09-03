@@ -3,6 +3,8 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -23,10 +25,12 @@ import { AppService } from './app.service';
         autoLoadEntities: true,
         entities: ['dist/**/*.entity{.ts,.js}'], // Adjust as needed
         migrations: ['dist/migrations/*{.ts,.js}'], // Adjust as needed
-        synchronize: true, // Set to 'true' for development to auto-sync the schema with the database
-        dropSchema: true
+        synchronize: false, // Set to 'true' for development to auto-sync the schema with the database
+        dropSchema: false
       }),
     }),
+    AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
